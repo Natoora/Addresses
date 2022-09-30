@@ -1,6 +1,5 @@
 from django.conf import settings
 from rest_framework import viewsets, status
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
@@ -10,8 +9,6 @@ from addresses.serializers import (
     CountrySerializer,
     StateSerializer,
 )
-from runs.models import DeliveryArea
-from natooraapp.postcode_choices import LONDON_POSTCODES
 
 
 class AddressViewSet(viewsets.ModelViewSet):
@@ -77,27 +74,3 @@ def get_district_from_postcode(postcode):
                 {"message": "Invalid zipcode"}, status=status.HTTP_400_BAD_REQUEST
             )
     return district
-
-
-@api_view(["GET"])
-@permission_classes((AllowAny,))
-def postcode_validation(request):
-    """Checks if we deliver to the given postcode.
-
-    :param request: query param with postcode.
-    :return: HttpResponse.
-    """
-    if request.method == "GET":
-        postcode = request.query_params.get("postcode")
-        district = get_district_from_postcode(postcode)
-        is_valid = DeliveryArea.objects.filter(
-            area_code=district, accepted=True
-        ).exists()
-        return Response(
-            {
-                "valid": is_valid,
-                "is_uk": settings.APP_LOCATION == "LONDON",
-                "is_london": district in LONDON_POSTCODES,
-            },
-            status=status.HTTP_202_ACCEPTED,
-        )

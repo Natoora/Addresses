@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericStackedInline
 
 from addresses.models import Country, State, Address
-from common.admin import CustomModelAdmin
 
 
 class AddressInLine(GenericStackedInline):
@@ -26,7 +25,7 @@ class AddressInLine(GenericStackedInline):
 
 
 @admin.register(Country)
-class CountryAdmin(CustomModelAdmin):
+class CountryAdmin(admin.ModelAdmin):
     """
     Country Model Admin.
     """
@@ -37,7 +36,7 @@ class CountryAdmin(CustomModelAdmin):
 
 
 @admin.register(State)
-class StateAdmin(CustomModelAdmin):
+class StateAdmin(admin.ModelAdmin):
     """
     State Model Admin.
     """
