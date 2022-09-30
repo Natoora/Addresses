@@ -4,12 +4,10 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-from common.models import BaseModel
-
 logger = logging.getLogger(__name__)
 
 
-class Country(BaseModel):
+class Country(models.Model):
     """
     Country model
     """
@@ -23,13 +21,13 @@ class Country(BaseModel):
         return self.name
 
 
-class Address(BaseModel):
+class Address(models.Model):
     """
     Generic Address model
     """
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+    object_id = models.CharField(max_length=36)
     content_object = GenericForeignKey("content_type", "object_id")
     line1 = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10, help_text="UK Postcode/US zip code")
@@ -53,24 +51,6 @@ class Address(BaseModel):
 
     def __str__(self):
         return self.line1
-
-    def save(self, *args, **kwargs):
-        """
-
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        super(Address, self).save(*args, **kwargs)
-        if self.content_type.app_label == "customers":
-            from customers.services.customers_service import CustomerService
-
-            try:
-                CustomerService.update_customer_sync(self.content_object)
-            except Exception:
-                logger.exception(
-                    "Exception raised when saving Address {}".format(self.id)
-                )
 
     def state_name(self):
         if self.state:
