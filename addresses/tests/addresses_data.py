@@ -15,6 +15,7 @@ def populate():
     CountryFactory.create(name="Ireland")
     CountryFactory.create(name="France")
     CountryFactory.create(name="Belgium")
+    CountryFactory.create(name="United Kingdom")
 
     """ Addresses create state entries """
     StateFactory.create(
