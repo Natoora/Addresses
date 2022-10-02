@@ -22,7 +22,7 @@ How to install Addresses into your project
 Releasing
 ---------
 
-1. Increment version number in setup.py
+1. Increment version number in setup.cfg
 
 2. Commit and push changes.
 
