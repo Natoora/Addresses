@@ -32,7 +32,7 @@ class Address(models.Model):
     line1 = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10, help_text="UK Postcode/US zip code")
     country = models.ForeignKey(
-        "addresses.Country", null=True, blank=True, on_delete=models.SET_NULL
+        "addresses.Country", on_delete=models.SET_NULL
     )
     city = models.CharField(max_length=30)
     county = models.CharField(max_length=30, null=True, blank=True)
