@@ -3,12 +3,12 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
-from addresses.serializers import (
-    AddressesSerializer,
+from addresses.models import Address, Country, State
+from addresses.app_settings import (
+    AddressSerializer,
     CountrySerializer,
     StateSerializer,
 )
-from app_settings import Address, Country, State
 
 
 class AddressViewSet(viewsets.ModelViewSet):
@@ -16,7 +16,7 @@ class AddressViewSet(viewsets.ModelViewSet):
     Customer view set
     """
 
-    serializer_class = AddressesSerializer
+    serializer_class = AddressSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):

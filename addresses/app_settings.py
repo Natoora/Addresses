@@ -1,7 +1,9 @@
 from django.conf import settings
 
+from addresses.serializers import AddressSerializer, CountrySerializer, StateSerializer
+
 settings = getattr(settings, 'ADDRESSES_SETTINGS', {})
 
-Address = settings.get("ADDRESS_MODEL", "models.Address")
-Country = settings.get("COUNTRY_MODEL", "models.Country")
-State = settings.get("STATE_MODEL", "models.State")
+AddressSerializer = settings.get("ADDRESS_SERIALIZER", AddressSerializer)
+CountrySerializer = settings.get("COUNTRY_SERIALIZER", CountrySerializer)
+StateSerializer = settings.get("STATE_SERIALIZER", StateSerializer)
