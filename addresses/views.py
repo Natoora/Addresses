@@ -3,12 +3,12 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
-from addresses.models import Address, Country, State
 from addresses.serializers import (
     AddressesSerializer,
     CountrySerializer,
     StateSerializer,
 )
+from app_settings import Address, Country, State
 
 
 class AddressViewSet(viewsets.ModelViewSet):

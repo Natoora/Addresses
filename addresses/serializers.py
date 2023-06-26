@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 
-from addresses.models import Address, Country, State
+from app_settings import Address, Country, State
 
 
 class AddressesSerializer(serializers.ModelSerializer):
