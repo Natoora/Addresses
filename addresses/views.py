@@ -12,9 +12,7 @@ from addresses.app_settings import (
 
 
 class AddressViewSet(viewsets.ModelViewSet):
-    """
-    Customer view set
-    """
+    """Address view set"""
 
     serializer_class = AddressSerializer
     permission_classes = (IsAuthenticated,)
@@ -24,9 +22,7 @@ class AddressViewSet(viewsets.ModelViewSet):
 
 
 class CountryViewSet(viewsets.ModelViewSet):
-    """
-    Country view set
-    """
+    """Country view set"""
 
     serializer_class = CountrySerializer
     permission_classes = (IsAuthenticated,)
@@ -36,9 +32,7 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 
 class StateViewSet(viewsets.ModelViewSet):
-    """
-    State view set
-    """
+    """State view set"""
 
     serializer_class = StateSerializer
     permission_classes = (IsAuthenticated,)
@@ -48,9 +42,7 @@ class StateViewSet(viewsets.ModelViewSet):
 
 
 def get_district_from_postcode(postcode):
-    """
-    function to get the district from a postcode
-    """
+    """function to get the district from a postcode"""
     if settings.APP_LOCATION == "LONDON":
         try:
             stripped_postcode = postcode.replace(" ", "").upper()
