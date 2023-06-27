@@ -5,9 +5,7 @@ from addresses.models import Address, Country, State
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    """
-    Address Serializer
-    """
+    """Address Serializer"""
 
     content_type = serializers.CharField(write_only=True, required=True)
     app_label = serializers.CharField(write_only=True, required=True)
@@ -84,9 +82,7 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class StateSerializer(serializers.ModelSerializer):
-    """
-    State Serializer
-    """
+    """State Serializer"""
 
     class Meta:
         model = State
@@ -99,9 +95,7 @@ class StateSerializer(serializers.ModelSerializer):
 
 
 class CountrySerializer(serializers.ModelSerializer):
-    """
-    Country Serializer
-    """
+    """Country Serializer"""
 
     class Meta:
         model = Country
