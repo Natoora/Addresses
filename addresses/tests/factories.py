@@ -19,44 +19,17 @@ class StateFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ("name",)
 
     name = factory.Faker("name")
-    abbreviation = FuzzyText(length=3)
-    country = factory.SubFactory(CountryFactory, name="USA")
 
 
 class AddressFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = Address
+        exclude = ["content_object"]
+        abstract = True
 
-    content_type = factory.Iterator(ContentType.objects.all())
-    object_id = FuzzyInteger(low=1, high=500)
+    content_type = factory.LazyAttribute(
+        lambda o: ContentType.objects.get_for_model(o.content_object)
+    )
+    object_id = factory.SelfAttribute("content_object.id")
     line1 = factory.Faker("address")
     postcode = factory.Faker("postcode")
-    country = factory.SubFactory(
-        CountryFactory,
-        name=FuzzyChoice(
-            [
-                "Greece",
-                "Austria",
-                "Vietnam",
-                "USA",
-                "UK",
-                "Spain",
-                "Netherlands",
-                "Italy",
-                "Israel",
-                "France",
-                "Belgium",
-            ]
-        ),
-    )
     city = factory.Faker("city")
-    county = FuzzyText(length=4)
-    state = factory.SubFactory(
-        StateFactory,
-        name=FuzzyChoice(["Wyoming", "Virginia", "Utah", "Tennessee", "Pennsylvania"]),
-    )
-    notes = FuzzyText(length=20)
-    delivery_address = factory.Faker("pybool")
-    billing_address = factory.Faker("pybool")
-    latitude = FuzzyFloat(low=1, high=20)
-    longitude = FuzzyFloat(low=1, high=20)
